@@ -75,22 +75,6 @@ public class ChatColorPlugin extends JavaPlugin {
     }
 
     public void setupListeners(){
-
-        EventPriority priority = configurationManager.getConfig().contains("config.listener-priority") ?
-                EventPriority.valueOf(configurationManager.getConfig().getString("config.listener-priority")) :
-                EventPriority.LOW;
-
-
-
-        getServer().getPluginManager().registerEvent(
-                AsyncPlayerChatEvent.class,
-                new Listener() {},
-                priority,
-                new ChatListener(this),
-                this
-
-        );
-       //getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
         getServer().getPluginManager().registerEvents(new GuiListener(), this);
     }

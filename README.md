@@ -1,38 +1,44 @@
-# ChatColor
+# ChatColorFork
 Plugin for Spigot that allows you to create patterns and colors for the chat
+Original plugin: https://www.spigotmc.org/resources/chatcolor-%E2%9C%A8-custom-patterns-%E2%9C%85-full-configurable.93186/
 
-## Commands
+##
+What is different from the original plugin?
+- Removed the ChatListener forcing messages to be automatically colored
+- Added compatibility with Kyori Adventure
+- Added placeholder %chatcolor_kyori_pattern%
 
-| Users                    | Permission       |
-|:-------------------------|:-----------------:|
-| /chatcolor               |                   |
-| /chatcolor set [pattern] | chatcolor.set     |
-| /chatcolor list          | chatcolor.list    |
-| /chatcolor disable       | chatcolor.disable |
-| /chatcolor gui           | chatcolor.gui     |
-
-
-| Admin                                  | Permission             |
-|:---------------------------------------|:-----------------------:|
-| /chatcoloradmin                        |                         |
-| /chatcoloradmin set [player] [pattern] | chatcolor.admin.set     |
-| /chatcoloradmin disable [player]       | chatcolor.admin.disable |
-| /chatcoloradmin gui [player]           | chatcolor.admin.gui     |
-| /chatcoloradmin reload                 | chatcolor.admin.reload  |
-
-## Pattern Modes
-
-| Mode                 | Description                                            |
-|:---------------------|:-------------------------------------------------------|
-| SINGLE               | Use only the first color                               |
-| RANDOM               | Use the colors randomly                                |
-| LINEAR               | Use all colors in a linear fashion                     |
-| LINEAR_IGNORE_SPACES | Use all the colors in a linear way ignoring the spaces |
-| GRADIENT             | Makes a gradient with the colors entered               |
-
-## Placeholders
-
-| Placeholder                        | Information                                                                  |
-|:-----------------------------------|:-----------------------------------------------------------------------------|
-| %chatcolor_pattern_name%           | Returns the name of the pattern that the equipped player has                 |
-| %chatcolor_pattern_name_formatted% | Returns the name of the pattern that the player has equipped but with colors |
+##
+How to add minimessage formatting? https://docs.advntr.dev/minimessage/format.html
+- Example (Classic Color)
+```yaml
+dark_red:
+  permission: 'chatcolor.color.dark_red'
+  mode: 'SINGLE'
+  colors:
+    - '4'
+  kyori: '<red>'
+```
+- Example (Hex Color)
+```yaml
+  icy_blue:
+  permission: 'chatcolor.color.icy_blue'
+  mode: 'SINGLE'
+  colors:
+    - '#C6E2FF'
+  kyori: '<#C6E2FF>'
+```
+- Example (Gradient)
+```yaml
+rainbow_gradient:
+  permission: 'chatcolor.color.rainbow_gradient'
+  mode: 'GRADIENT'
+  colors:
+    - '#FF0000'
+    - '#F4FF00'
+    - '#00FF13'
+    - '#00F2FF'
+    - '#1200FF'
+    - '#FF00FB'
+  kyori: '<gradient:#FF0000:#F4FF00:#00FF13:#00F2FF:#1200FF:#FF00FB>'
+```
