@@ -1,5 +1,6 @@
 # ChatColorFork
 Plugin for Spigot that allows you to create patterns and colors for the chat
+
 Original plugin: https://www.spigotmc.org/resources/chatcolor-%E2%9C%A8-custom-patterns-%E2%9C%85-full-configurable.93186/
 
 ##
