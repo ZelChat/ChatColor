@@ -39,7 +39,7 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
 
     public String onPlaceholderRequest(Player player, String identifier) {
 
-        CPlayer cPlayer = ChatColorPlugin.getInstance().getDataMap().get(player.getUniqueId());
+        CPlayer cPlayer = player != null ? ChatColorPlugin.getInstance().getDataMap().get(player.getUniqueId()) : null;
 
         if (cPlayer == null) {
             return "";
