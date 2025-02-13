@@ -137,26 +137,14 @@ public class GuiBuilder {
             } catch (ArrayIndexOutOfBoundsException exception){
                 exception.printStackTrace();
             }
-
-
         }
 
         player.closeInventory();
         GuiListener.setPlayerOpenedGui(player, this);
-        player.openInventory(gui);
+        final var guiToOpen = gui;
+        ChatColorPlugin.getInstance().getScheduler().runTask(() -> player.openInventory(guiToOpen));
 
     }
 
-    public void open(Player player, long delay){
-
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                open(player);
-            }
-        }.runTaskLater(ChatColorPlugin.getInstance(), delay);
-
-
-    }
 
 }

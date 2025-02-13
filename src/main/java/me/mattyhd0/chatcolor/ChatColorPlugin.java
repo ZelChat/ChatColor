@@ -15,6 +15,8 @@ import me.mattyhd0.chatcolor.player.impl.SQLPlayerManager;
 import me.mattyhd0.chatcolor.player.impl.YamlPlayerManager;
 import me.mattyhd0.chatcolor.updatechecker.UpdateChecker;
 import me.mattyhd0.chatcolor.util.Util;
+import me.nahu.scheduler.wrapper.WrappedScheduler;
+import me.nahu.scheduler.wrapper.WrappedSchedulerBuilder;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
@@ -35,17 +37,23 @@ public class ChatColorPlugin extends JavaPlugin {
     private PatternManager patternManager;
     private ConfigurationManager configurationManager;
     private AbstractPlayerManager playerManager;
-    private List<String> supportedPlugins = new ArrayList<>();
-
+    private final List<String> supportedPlugins = new ArrayList<>();
     private String prefix;
-    private Metrics metrics;
     private HikariDataSource hikariConnectionPool;
 
+    private WrappedScheduler scheduler;
+
+    @Override
+    public void onLoad() {
+        INSTANCE = this;
+        scheduler = WrappedSchedulerBuilder.builder().plugin(this).build();
+    }
+
+    @Override
     public void onEnable() {
-        ChatColorPlugin.INSTANCE = this;
         prefix = Util.color("&8[&4&lC&c&lh&6&la&e&lt&2&lC&a&lo&b&ll&3&lo&1&lr&8]");
         Bukkit.getConsoleSender().sendMessage(Util.color(prefix+" &7Enabling ChatColor v" + this.getDescription().getVersion()));
-        metrics = new Metrics(this, 11648);
+        new Metrics(this, 11648);
         saySupport("PlaceholderAPI");
         reload();
         if(configurationManager.getConfig().getBoolean("config.mysql.enable")){
@@ -55,7 +63,6 @@ public class ChatColorPlugin extends JavaPlugin {
         }
         setupListeners();
         setupCommands();
-        updateChecker(this, 93186);
         setupPlaceholderAPI();
     }
 
@@ -68,7 +75,8 @@ public class ChatColorPlugin extends JavaPlugin {
         }
         if(configurationManager.getConfig().getBoolean("config.mysql.enable")) openMysqlConnection();
     }
-    
+
+    @Override
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(Util.color(prefix+" &7Disabling ChatColor v" + this.getDescription().getVersion()));
         if(hikariConnectionPool != null) {
@@ -93,31 +101,6 @@ public class ChatColorPlugin extends JavaPlugin {
     public void setupPlaceholderAPI() {
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new ChatColorPlaceholders().register();
-        }
-    }
-
-    private void updateChecker(Plugin plugin, int spigotId) {
-        if (ChatColorPlugin.getInstance().getConfigurationManager().getConfig().getBoolean("config.update-checker")) {
-            Bukkit.getScheduler().runTaskTimerAsynchronously(this,()-> {
-                UpdateChecker updateChecker = new UpdateChecker(plugin, spigotId);
-                ConsoleCommandSender console = Bukkit.getConsoleSender();
-                if (updateChecker.requestIsValid()) {
-                    if (updateChecker.isRunningLatestVersion()) {
-                        String message = Util.color(prefix+" &7You are using the latest version of ChatColor!");
-                        console.sendMessage(message);
-                    } else {
-                        String message = Util.color(prefix+" &7You are using version &a" + updateChecker.getVersion() + "&7 and the latest version is &a" + updateChecker.getLatestVersion());
-                        String message2 = Util.color(prefix+" &7You can download the latest version at: &a" + updateChecker.getSpigotResource().getDownloadUrl());
-                        console.sendMessage(message);
-                        console.sendMessage(message2);
-                    }
-                } else {
-                    String message = Util.color(prefix+" &7Could not verify if you are using the latest version of ChatColor :(");
-                    String message2 = Util.color(prefix+" &7You can disable update checker in config.yml file");
-                    console.sendMessage(message);
-                    console.sendMessage(message2);
-                }
-            }, 20 * 30,20 * 60 * 60 * 24);
         }
     }
 
@@ -206,5 +189,9 @@ public class ChatColorPlugin extends JavaPlugin {
 
     public Map<UUID, CPlayer> getDataMap() {
         return playerManager.getOnlinePlayers();
+    }
+
+    public WrappedScheduler getScheduler() {
+        return scheduler;
     }
 }

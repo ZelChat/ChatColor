@@ -5,3 +5,7 @@
 .idea
 *.xml
 *.iml
+
+.gradle
+ChatColor.iml
+build/
