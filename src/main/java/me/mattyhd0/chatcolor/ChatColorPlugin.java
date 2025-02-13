@@ -16,7 +16,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.Bukkit;
 import me.mattyhd0.chatcolor.listener.ConnectionListener;
@@ -39,7 +41,7 @@ public class ChatColorPlugin extends JavaPlugin {
     private String prefix;
     private Metrics metrics;
     private HikariDataSource hikariConnectionPool;
-    private HashMap<UUID,CPlayer> dataMap = new HashMap<>();
+    private final Map<UUID,CPlayer> dataMap = new ConcurrentHashMap<>();
 
     public void onEnable() {
         ChatColorPlugin.INSTANCE = this;
@@ -202,7 +204,7 @@ public class ChatColorPlugin extends JavaPlugin {
         return prefix;
     }
 
-    public HashMap<UUID, CPlayer> getDataMap() {
+    public Map<UUID, CPlayer> getDataMap() {
         return dataMap;
     }
 }

@@ -4,10 +4,13 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.mattyhd0.chatcolor.CPlayer;
 import me.mattyhd0.chatcolor.ChatColorPlugin;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class ChatColorPlaceholders extends PlaceholderExpansion {
-    private Plugin plugin;
+
+
+    private ChatColorPlugin plugin;
 
     public ChatColorPlaceholders() {
         this.plugin = ChatColorPlugin.getInstance();
@@ -37,13 +40,13 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
         return true;
     }
 
-    public String onPlaceholderRequest(Player player, String identifier) {
+    @Override
+    public String onPlaceholderRequest(@Nullable Player player, @NotNull String identifier) {
+        if(player == null) return "";
 
-        CPlayer cPlayer = ChatColorPlugin.getInstance().getDataMap().get(player.getUniqueId());
+        CPlayer cPlayer = plugin.getDataMap().get(player.getUniqueId());
 
-        if (cPlayer == null) {
-            return "";
-        }
+        if (cPlayer == null) return "";
 
         return switch (identifier) {
             case "last_message" -> cPlayer.getLastMessages();
@@ -55,7 +58,7 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
             case "kyori_pattern" -> {
                 var name = cPlayer.getPattern().getName(false);
                 if(name == null) yield "";
-                var color = ChatColorPlugin.getInstance().getConfigurationManager().getPatterns().getString(name + ".kyori");
+                var color = plugin.getConfigurationManager().getPatterns().getString(name + ".kyori");
                 yield color == null ? "" : color;
             }
             default -> "";
