@@ -54,6 +54,7 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
 
             case "kyori_pattern" -> {
                 var name = cPlayer.getPattern().getName(false);
+                if(name == null) yield "";
                 var color = ChatColorPlugin.getInstance().getConfigurationManager().getPatterns().getString(name + ".kyori");
                 yield color == null ? "" : color;
             }
