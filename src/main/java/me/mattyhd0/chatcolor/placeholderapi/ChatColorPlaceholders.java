@@ -54,9 +54,13 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
             case "pattern_name_formatted" -> cPlayer.getPattern() == null ? "" : cPlayer.getPattern().getName(true);
 
             case "kyori_pattern" -> {
-                var name = cPlayer.getPattern().getName(false);
+                final var pattern = cPlayer.getPattern();
+                if(pattern == null) yield "";
+
+                final var name = pattern.getName(false);
                 if(name == null) yield "";
-                var color = plugin.getConfigurationManager().getPatterns().getString(name + ".kyori");
+
+                final var color = plugin.getConfigurationManager().getPatterns().getString(name + ".kyori");
                 yield color == null ? "" : color;
             }
             default -> "";
