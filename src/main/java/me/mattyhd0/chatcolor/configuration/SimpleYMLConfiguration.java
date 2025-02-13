@@ -42,12 +42,8 @@ public class SimpleYMLConfiguration extends YamlConfiguration {
         }
     }
     
-    public void save() {
-        try {
+    public void save() throws IOException{
             this.save(this.file);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
     }
 
 }

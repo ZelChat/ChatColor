@@ -1,18 +1,18 @@
 package me.mattyhd0.chatcolor.command;
 
-import me.mattyhd0.chatcolor.CPlayer;
+import me.mattyhd0.chatcolor.ChatColorPlugin;
 import me.mattyhd0.chatcolor.configuration.ConfigurationManager;
 import me.mattyhd0.chatcolor.configuration.MessagesYMLFile;
 import me.mattyhd0.chatcolor.configuration.SimpleYMLConfiguration;
 import me.mattyhd0.chatcolor.gui.ChatColorGUI;
 import me.mattyhd0.chatcolor.pattern.api.BasePattern;
+import me.mattyhd0.chatcolor.player.CPlayer;
 import me.mattyhd0.chatcolor.util.Util;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import me.mattyhd0.chatcolor.ChatColorPlugin;
-import org.bukkit.command.CommandExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
     private ChatColorPlugin plugin;
-    
+
     public ChatColorCommand(ChatColorPlugin plugin) {
         this.plugin = plugin;
     }
@@ -41,8 +41,8 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         if (!(arg.length > 0)) {
 
-            if(config.getBoolean("config.use-main-command-as-gui")){
-                gui(player, new String[]{ "gui" });
+            if (config.getBoolean("config.use-main-command-as-gui")) {
+                gui(player, new String[]{"gui"});
                 return true;
             }
 
@@ -66,7 +66,7 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         return true;
     }
-    
+
     public void setPattern(Player player, String[] arg) {
 
         ConfigurationManager configurationManager = plugin.getConfigurationManager();
@@ -78,7 +78,7 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
                 BasePattern pattern = plugin.getPatternManager().getPatternByName(arg[1]);
 
-                if(plugin.getDataMap().containsKey(player.getUniqueId())) {
+                if (plugin.getDataMap().containsKey(player.getUniqueId())) {
                     CPlayer cPlayer = plugin.getDataMap().get(player.getUniqueId());
 
                     if (pattern != null) {
@@ -118,9 +118,9 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
                                         .replaceAll("%pattern%", arg[1])
                         );
                     }
-                }else {
+                } else {
                     player.sendMessage(
-                            messagesYMLFile.getMessage("commands.chatcolor.player-not-loaded","%prefix% &cReconnect to the server. If issue persist, contact an administrator.")
+                            messagesYMLFile.getMessage("commands.chatcolor.player-not-loaded", "%prefix% &cReconnect to the server. If issue persist, contact an administrator.")
                                     .replaceAll("%player%", arg[1])
                     );
                 }
@@ -134,7 +134,7 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
             noPermission(player);
         }
     }
-    
+
     public void list(Player player, String[] arg) {
 
         ConfigurationManager configurationManager = plugin.getConfigurationManager();
@@ -144,7 +144,7 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         if (player.hasPermission("chatcolor.list")) {
 
-            if(arg.length == 1) {
+            if (arg.length == 1) {
 
                 if (config.getBoolean("config.custom-pattern-list.enable")) {
 
@@ -159,7 +159,7 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
                     player.sendMessage(header);
 
-                    for (BasePattern pattern: plugin.getPatternManager().getAllPatterns()) {
+                    for (BasePattern pattern : plugin.getPatternManager().getAllPatterns()) {
 
                         String patternName = pattern.getName(config.getBoolean("config.show-pattern-on.list"));
                         String patternPermission = pattern.getPermission();
@@ -197,9 +197,9 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
             noPermission(player);
         }
     }
-    
+
     public void disable(Player player, String[] arg) {
-        if(plugin.getDataMap().containsKey(player.getUniqueId())) {
+        if (plugin.getDataMap().containsKey(player.getUniqueId())) {
             CPlayer cPlayer = plugin.getDataMap().get(player.getUniqueId());
             BasePattern pattern = cPlayer.getPattern();
             SimpleYMLConfiguration config = plugin.getConfigurationManager().getConfig();
@@ -233,9 +233,9 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
             } else {
                 noPermission(player);
             }
-        }else{
+        } else {
             player.sendMessage(
-                    plugin.getConfigurationManager().getMessages().getMessage("commands.chatcolor.player-not-loaded","%prefix% &cReconnect to the server. If issue persist, contact an administrator.")
+                    plugin.getConfigurationManager().getMessages().getMessage("commands.chatcolor.player-not-loaded", "%prefix% &cReconnect to the server. If issue persist, contact an administrator.")
                             .replaceAll("%player%", arg[1])
             );
         }
@@ -247,13 +247,13 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         if (player.hasPermission("chatcolor.gui")) {
 
-            if(arg.length == 1) {
-                if(plugin.getDataMap().containsKey(player.getUniqueId())) {
+            if (arg.length == 1) {
+                if (plugin.getDataMap().containsKey(player.getUniqueId())) {
                     player.sendMessage(messagesYMLFile.getMessage("commands.chatcolor.gui.gui-opened"));
                     ChatColorGUI.openGui(player);
-                }else {
+                } else {
                     player.sendMessage(
-                            plugin.getConfigurationManager().getMessages().getMessage("commands.chatcolor.player-not-loaded","%prefix% &cReconnect to the server. If issue persist, contact an administrator.")
+                            plugin.getConfigurationManager().getMessages().getMessage("commands.chatcolor.player-not-loaded", "%prefix% &cReconnect to the server. If issue persist, contact an administrator.")
                                     .replaceAll("%player%", arg[1])
                     );
                 }
@@ -269,12 +269,12 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    
+
     public void help(Player player, String[] arg) {
 
         MessagesYMLFile messagesYMLFile = plugin.getConfigurationManager().getMessages();
 
-        if(arg.length == 1) {
+        if (arg.length == 1) {
 
             for (String line : messagesYMLFile.getMessageList("commands.chatcolor.help")) {
                 player.sendMessage(line);
@@ -289,11 +289,11 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         }
     }
-    
+
     public void noPermission(Player player) {
         player.sendMessage(plugin.getConfigurationManager().getMessages().getMessage("other.no-permission"));
     }
-    
+
     public void unknownCommand(Player player) {
         player.sendMessage(plugin.getConfigurationManager().getMessages().getMessage("commands.chatcolor.unknown-command"));
     }
@@ -303,7 +303,7 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         List<String> completions = new ArrayList<>();
 
-        if(strings.length == 1) {
+        if (strings.length == 1) {
 
             completions.add("set");
             completions.add("disable");
@@ -315,11 +315,10 @@ public class ChatColorCommand implements CommandExecutor, TabCompleter {
 
         } else if (strings.length == 2 && strings[0].equals("set")) {
             Player player = (Player) sender;
-            if(plugin.getDataMap().containsKey(player.getUniqueId())) {
+            if (plugin.getDataMap().containsKey(player.getUniqueId())) {
                 for (BasePattern pattern : plugin.getPatternManager().getAllPatterns()) {
-
-                    if (plugin.getDataMap().get(player.getUniqueId()).canUsePattern(pattern)) completions.add(pattern.getName(false));
-
+                    if (player.hasPermission(pattern.getPermission()))
+                        completions.add(pattern.getName(false));
                 }
             }
 

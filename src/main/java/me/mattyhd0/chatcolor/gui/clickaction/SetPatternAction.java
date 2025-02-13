@@ -1,9 +1,9 @@
 package me.mattyhd0.chatcolor.gui.clickaction;
 
-import me.mattyhd0.chatcolor.CPlayer;
 import me.mattyhd0.chatcolor.ChatColorPlugin;
 import me.mattyhd0.chatcolor.gui.clickaction.api.GuiClickAction;
 import me.mattyhd0.chatcolor.pattern.api.BasePattern;
+import me.mattyhd0.chatcolor.player.CPlayer;
 import org.bukkit.entity.Player;
 
 public class SetPatternAction implements GuiClickAction {

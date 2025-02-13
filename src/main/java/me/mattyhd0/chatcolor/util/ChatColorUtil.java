@@ -1,4 +1,4 @@
-package me.mattyhd0.chatcolor;
+package me.mattyhd0.chatcolor.util;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MyChatColor {
+public final class ChatColorUtil {
 
     public static String translateAlternateColorCodes(String textToTranslate, Player player) {
         char altColorChar = '&';

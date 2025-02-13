@@ -3,7 +3,8 @@ package me.mattyhd0.chatcolor.pattern.format;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TextFormatOptions {

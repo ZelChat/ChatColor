@@ -1,8 +1,8 @@
 package me.mattyhd0.chatcolor.placeholderapi;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.mattyhd0.chatcolor.CPlayer;
 import me.mattyhd0.chatcolor.ChatColorPlugin;
+import me.mattyhd0.chatcolor.player.CPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -49,8 +49,6 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
         if (cPlayer == null) return "";
 
         return switch (identifier) {
-            case "last_message" -> cPlayer.getLastMessages();
-
             case "pattern_name" -> cPlayer.getPattern() == null ? "" : cPlayer.getPattern().getName(false);
 
             case "pattern_name_formatted" -> cPlayer.getPattern() == null ? "" : cPlayer.getPattern().getName(true);

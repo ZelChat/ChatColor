@@ -3,45 +3,43 @@ package me.mattyhd0.chatcolor;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import me.mattyhd0.chatcolor.command.ChatColorAdminCommand;
+import me.mattyhd0.chatcolor.command.ChatColorCommand;
 import me.mattyhd0.chatcolor.configuration.ConfigurationManager;
 import me.mattyhd0.chatcolor.configuration.SimpleYMLConfiguration;
 import me.mattyhd0.chatcolor.gui.GuiListener;
 import me.mattyhd0.chatcolor.pattern.manager.PatternManager;
+import me.mattyhd0.chatcolor.placeholderapi.ChatColorPlaceholders;
+import me.mattyhd0.chatcolor.player.AbstractPlayerManager;
+import me.mattyhd0.chatcolor.player.CPlayer;
+import me.mattyhd0.chatcolor.player.impl.SQLPlayerManager;
+import me.mattyhd0.chatcolor.player.impl.YamlPlayerManager;
 import me.mattyhd0.chatcolor.updatechecker.UpdateChecker;
 import me.mattyhd0.chatcolor.util.Util;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.command.ConsoleCommandSender;
-import me.mattyhd0.chatcolor.placeholderapi.ChatColorPlaceholders;
-import java.sql.*;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.bukkit.Bukkit;
-import me.mattyhd0.chatcolor.listener.ConnectionListener;
-import me.mattyhd0.chatcolor.listener.ChatListener;
-import me.mattyhd0.chatcolor.command.ChatColorCommand;
-
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class ChatColorPlugin extends JavaPlugin {
 
     private static ChatColorPlugin INSTANCE;
     private PatternManager patternManager;
     private ConfigurationManager configurationManager;
+    private AbstractPlayerManager playerManager;
     private List<String> supportedPlugins = new ArrayList<>();
 
     private String prefix;
     private Metrics metrics;
     private HikariDataSource hikariConnectionPool;
-    private final Map<UUID,CPlayer> dataMap = new ConcurrentHashMap<>();
 
     public void onEnable() {
         ChatColorPlugin.INSTANCE = this;
@@ -50,6 +48,11 @@ public class ChatColorPlugin extends JavaPlugin {
         metrics = new Metrics(this, 11648);
         saySupport("PlaceholderAPI");
         reload();
+        if(configurationManager.getConfig().getBoolean("config.mysql.enable")){
+            this.playerManager = new SQLPlayerManager(this);
+        }else{
+            this.playerManager = new YamlPlayerManager(this);
+        }
         setupListeners();
         setupCommands();
         updateChecker(this, 93186);
@@ -68,16 +71,13 @@ public class ChatColorPlugin extends JavaPlugin {
     
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(Util.color(prefix+" &7Disabling ChatColor v" + this.getDescription().getVersion()));
-        for (CPlayer cPlayer: dataMap.values()){
-            cPlayer.saveData();
-        }
         if(hikariConnectionPool != null) {
             hikariConnectionPool.close();
         }
     }
 
     public void setupListeners(){
-        getServer().getPluginManager().registerEvents(new ConnectionListener(this), this);
+        getServer().getPluginManager().registerEvents(playerManager, this);
         getServer().getPluginManager().registerEvents(new GuiListener(), this);
     }
 
@@ -205,6 +205,6 @@ public class ChatColorPlugin extends JavaPlugin {
     }
 
     public Map<UUID, CPlayer> getDataMap() {
-        return dataMap;
+        return playerManager.getOnlinePlayers();
     }
 }

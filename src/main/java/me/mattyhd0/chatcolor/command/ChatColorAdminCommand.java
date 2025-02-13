@@ -1,12 +1,12 @@
 package me.mattyhd0.chatcolor.command;
 
-import me.mattyhd0.chatcolor.CPlayer;
 import me.mattyhd0.chatcolor.ChatColorPlugin;
 import me.mattyhd0.chatcolor.configuration.ConfigurationManager;
 import me.mattyhd0.chatcolor.configuration.MessagesYMLFile;
 import me.mattyhd0.chatcolor.configuration.SimpleYMLConfiguration;
 import me.mattyhd0.chatcolor.gui.ChatColorGUI;
 import me.mattyhd0.chatcolor.pattern.api.BasePattern;
+import me.mattyhd0.chatcolor.player.CPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
