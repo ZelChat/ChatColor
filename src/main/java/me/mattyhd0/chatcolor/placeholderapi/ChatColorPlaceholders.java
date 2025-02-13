@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class ChatColorPlaceholders extends PlaceholderExpansion {
 
 
@@ -61,11 +63,15 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
                 if(name == null) yield "";
 
                 final var color = plugin.getConfigurationManager().getPatterns().getString(name + ".kyori");
-                yield color == null ? "" : color;
+                yield color == null ? "" : color.substring(1, color.length() - 1);
             }
             default -> "";
         };
 
     }
 
+    @Override
+    public @NotNull List<String> getPlaceholders() {
+        return List.of("%chatcolor_pattern_name%", "%chatcolor_pattern_name_formatted%", "%chatcolor_kyori_pattern%");
+    }
 }
