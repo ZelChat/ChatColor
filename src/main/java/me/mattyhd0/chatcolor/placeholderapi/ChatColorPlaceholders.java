@@ -18,26 +18,29 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
         this.plugin = ChatColorPlugin.getInstance();
     }
 
+    @Override
     public boolean canRegister() {
         return true;
     }
 
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return "MattyHD0";
     }
 
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return "chatcolor";
     }
 
+    @Override
     public String getRequiredPlugin() {
         return "ChatColor";
     }
 
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return "1.0";
     }
 
+    @Override
     public boolean persist() {
         return true;
     }
@@ -63,7 +66,7 @@ public class ChatColorPlaceholders extends PlaceholderExpansion {
                 if(name == null) yield "";
 
                 final var color = plugin.getConfigurationManager().getPatterns().getString(name + ".kyori");
-                yield color == null ? "" : color.substring(1, color.length() - 1);
+                yield color == null ? "" : color.replace("[", "").replace("]", "");
             }
             default -> "";
         };
