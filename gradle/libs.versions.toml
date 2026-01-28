@@ -2,7 +2,7 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-com-github-cryptomorin-xseries = "11.3.0"
+com-github-cryptomorin-xseries = "13.5.1"
 com-google-code-gson-gson = "2.11.0"
 com-google-guava-guava = "33.2.1-jre"
 com-zaxxer-hikaricp = "6.2.1"

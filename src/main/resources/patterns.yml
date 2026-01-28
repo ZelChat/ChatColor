@@ -3,6 +3,7 @@ dark_red:
   mode: 'SINGLE'
   colors:
     - '4'
+  kyori: '<dark_red>'    
   gui-item:
     slot: 10
     has-permission:
@@ -44,6 +45,7 @@ red:
   mode: 'SINGLE'
   colors:
     - 'c'
+  kyori: '<red>'  
   gui-item:
     slot: 11
     has-permission:
@@ -85,6 +87,7 @@ gold:
   mode: 'SINGLE'
   colors:
     - '6'
+  kyori: '<gold>'  
   gui-item:
     slot: 12
     has-permission:
@@ -126,6 +129,7 @@ yellow:
   mode: 'SINGLE'
   colors:
     - 'e'
+  kyori: '<yellow>'  
   gui-item:
     slot: 13
     has-permission:
@@ -167,6 +171,7 @@ green:
   mode: 'SINGLE'
   colors:
     - '2'
+  kyori: '<dark_green>'  
   gui-item:
     slot: 14
     has-permission:
@@ -208,6 +213,7 @@ lime:
   mode: 'SINGLE'
   colors:
     - 'a'
+  kyori: '<green>'  
   gui-item:
     slot: 15
     has-permission:
@@ -249,6 +255,7 @@ aqua:
   mode: 'SINGLE'
   colors:
     - 'b'
+  kyori: '<aqua>'  
   gui-item:
     slot: 16
     has-permission:
@@ -290,6 +297,7 @@ dark_aqua:
   mode: 'SINGLE'
   colors:
     - '3'
+  kyori: '<dark_aqua>'  
   gui-item:
     slot: 19
     has-permission:
@@ -331,6 +339,7 @@ blue:
   mode: 'SINGLE'
   colors:
     - '9'
+  kyori: '<blue>'  
   gui-item:
     slot: 20
     has-permission:
@@ -372,6 +381,7 @@ dark_blue:
   mode: 'SINGLE'
   colors:
     - '1'
+  kyori: '<dark_blue>'  
   gui-item:
     slot: 21
     has-permission:
@@ -413,6 +423,7 @@ pink:
   mode: 'SINGLE'
   colors:
     - 'd'
+  kyori: '<light_purple>'  
   gui-item:
     slot: 22
     has-permission:
@@ -454,6 +465,7 @@ purple:
   mode: 'SINGLE'
   colors:
     - '5'
+  kyori: '<dark_purple>'  
   gui-item:
     slot: 23
     has-permission:
@@ -495,6 +507,7 @@ white:
   mode: 'SINGLE'
   colors:
     - 'f'
+  kyori: '<white>'  
   gui-item:
     slot: 24
     has-permission:
@@ -536,6 +549,7 @@ gray:
   mode: 'SINGLE'
   colors:
     - '7'
+  kyori: '<gray>'  
   gui-item:
     slot: 25
     has-permission:
@@ -577,6 +591,7 @@ dark_gray:
   mode: 'SINGLE'
   colors:
     - '8'
+  kyori: '<dark_gray>'  
   gui-item:
     slot: 28
     has-permission:
@@ -618,6 +633,7 @@ black:
   mode: 'SINGLE'
   colors:
     - '0'
+  kyori: '<black>'  
   gui-item:
     slot: 29
     has-permission:
@@ -664,6 +680,7 @@ monochromatic:
     - 'f'
     - '7'
     - '8'
+  kyori: '<gradient:#000000:#555555:#FFFFFF:#AAAAAA:#555555>'  
   gui-item:
     slot: 40
     has-permission:
@@ -715,6 +732,7 @@ rainbow:
     - '9'
     - 'd'
     - '5'
+  kyori: '<rainbow>'    
   gui-item:
     slot: 41
     has-permission:
@@ -767,6 +785,7 @@ rainbow_random:
     - '9'
     - 'd'
     - '5'
+  kyori: '<rainbow:!2>'  
   gui-item:
     slot: 42
     has-permission:
@@ -817,6 +836,7 @@ rainbow_gradient:
     - '#00F2FF'
     - '#1200FF'
     - '#FF00FB'
+  kyori: '<gradient:#FF0000:#F4FF00:#00FF13:#00F2FF:#1200FF:#FF00FB>'  
   gui-item:
     slot: 43
     has-permission:

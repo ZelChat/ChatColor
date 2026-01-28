@@ -2,7 +2,6 @@ package me.mattyhd0.chatcolor.gui.clickaction.util;
 
 import me.mattyhd0.chatcolor.gui.clickaction.*;
 import me.mattyhd0.chatcolor.gui.clickaction.api.GuiClickAction;
-import org.bukkit.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +44,9 @@ public class GuiClickActionManager {
 
             return new SetPatternAction(splitted[1]);
 
-        } else if (splitted[0].equals("CLOSE-INVENTORY")){
+        } else if (splitted[0].equals("CLOSE-INVENTORY")) {
 
             return new CloseInventoryAction();
-
-        } else if (splitted[0].equals("SOUND")){
-
-            String[] arg = splitted[1].split(" ");
-            try {
-                return new PlaySoundAction(Sound.valueOf(arg[0]), Float.parseFloat(arg[1]), Float.parseFloat(arg[2]));
-            } catch (IllegalArgumentException ignored){}
 
         }
 

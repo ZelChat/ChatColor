@@ -1,6 +1,5 @@
 gui:
   colored-example-text: "this is just a sample text"
-  open-sound: LEVEL_UP
   gui:
     title: "&8Pick a ChatColor"
     rows: 6
@@ -108,9 +107,7 @@ gui:
       # PLAYER-COMMAND:your command
       # SET-PATTERN:your pattern
       # CLOSE-INVENTORY
-      # SOUND:sound pitch yaw
       actions:
         - "PLAYER-COMMAND:chatcolor disable"
-        - "SOUND:ENTITY_PLAYER_LEVELUP 1 1"
         - "CLOSE-INVENTORY"
       slot: 49

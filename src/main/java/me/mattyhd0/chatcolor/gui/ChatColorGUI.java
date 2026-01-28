@@ -7,7 +7,6 @@ import me.mattyhd0.chatcolor.gui.clickaction.util.GuiClickActionManager;
 import me.mattyhd0.chatcolor.pattern.api.BasePattern;
 import me.mattyhd0.chatcolor.util.Placeholders;
 import me.mattyhd0.chatcolor.util.Util;
-import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -24,12 +23,6 @@ public class ChatColorGUI {
         FileConfiguration file = configurationManager.getGui();
         FileConfiguration patterns = configurationManager.getPatterns();
 
-        String openSoundStr = file.getString("gui.open-sound");
-
-        Sound sound = null;
-        try {
-            sound = Sound.valueOf(openSoundStr);
-        } catch (IllegalArgumentException | NullPointerException ignored){}
 
         GuiBuilder builder = new GuiBuilder()
                 .setRows(file.getInt("gui.gui.rows"))
@@ -98,7 +91,6 @@ public class ChatColorGUI {
         }
 
         builder.open(player);
-        if(sound != null) player.playSound(player.getLocation(), sound, 1, 1);
 
     }
 

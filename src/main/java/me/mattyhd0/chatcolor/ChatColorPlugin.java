@@ -13,14 +13,11 @@ import me.mattyhd0.chatcolor.player.AbstractPlayerManager;
 import me.mattyhd0.chatcolor.player.CPlayer;
 import me.mattyhd0.chatcolor.player.impl.SQLPlayerManager;
 import me.mattyhd0.chatcolor.player.impl.YamlPlayerManager;
-import me.mattyhd0.chatcolor.updatechecker.UpdateChecker;
 import me.mattyhd0.chatcolor.util.Util;
 import me.nahu.scheduler.wrapper.WrappedScheduler;
 import me.nahu.scheduler.wrapper.WrappedSchedulerBuilder;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
